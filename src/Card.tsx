@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
-export const Card: any = (textValue:any, cardFlipped:any, isMatchingPair:any) => {
+interface CardProps {
+  textValue: string; 
+  cardFlipped: boolean; 
+  isMatchingPair: () => void;
+}
+  
+ export function Card({ textValue, cardFlipped, isMatchingPair }: CardProps) {
+  const changeSide = () => {
+    if (!cardFlipped) {
+      isMatchingPair();
+    }
+  };
+  
   return (
-    <>
-      <p>{textValue}</p>
-      <p>{cardFlipped}</p>
-      <p>{isMatchingPair}</p>
-    </>
+    <div
+      id={`${cardFlipped ? 'backSide' : 'frontSide'}`}
+      className="gridItem"
+      onClick={changeSide}
+    >
+      <div id="text">{textValue}</div>
+    </div>
   );
 }
